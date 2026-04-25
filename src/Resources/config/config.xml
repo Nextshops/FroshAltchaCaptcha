@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Monitoring test bypass</title>
+        <title lang="de-DE">Monitoring Test-Bypass</title>
+
+        <input-field type="bool">
+            <name>testBypassEnabled</name>
+            <label>Enable test bypass (monitoring only)</label>
+            <label lang="de-DE">Test-Bypass aktivieren (nur Monitoring)</label>
+            <helpText>Only use for monitoring/test requests. Never as a global captcha replacement.</helpText>
+            <helpText lang="de-DE">Nur fuer Monitoring-/Test-Requests nutzen. Niemals als globalen Captcha-Ersatz einsetzen.</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="password">
+            <name>testBypassSecret</name>
+            <label>Test bypass secret (header value)</label>
+            <label lang="de-DE">Test-Bypass Secret (Header-Wert)</label>
+            <helpText>Compared to request header x-altcha-test-bypass. Use a long random value.</helpText>
+            <helpText lang="de-DE">Wird gegen den Request-Header x-altcha-test-bypass geprueft. Einen langen, zufaelligen Wert verwenden.</helpText>
+            <defaultValue></defaultValue>
+            <minLength>16</minLength>
+        </input-field>
+
+        <input-field type="text">
+            <name>testBypassRoutes</name>
+            <label>Allowed bypass routes (CSV)</label>
+            <label lang="de-DE">Erlaubte Bypass-Routen (CSV)</label>
+            <helpText>Comma-separated Shopware routes, for example frontend.form.contact.send</helpText>
+            <helpText lang="de-DE">Kommagetrennte Shopware-Routen, z. B. frontend.form.contact.send</helpText>
+            <defaultValue>frontend.form.contact.send</defaultValue>
+        </input-field>
+
+        <input-field type="text">
+            <name>testBypassIps</name>
+            <label>Allowed bypass IPs (CSV, optional)</label>
+            <label lang="de-DE">Erlaubte Bypass-IP-Adressen (CSV, optional)</label>
+            <helpText>Optional: comma-separated client IPs. Leave empty to disable IP check.</helpText>
+            <helpText lang="de-DE">Optional: kommagetrennte Client-IPs. Leer lassen, um die IP-Pruefung zu deaktivieren.</helpText>
+            <defaultValue></defaultValue>
+        </input-field>
+    </card>
+</config>
+

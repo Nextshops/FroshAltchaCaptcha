@@ -3,6 +3,7 @@
 namespace Frosh\AltchaCaptcha\Storefront\Framework;
 
 use AltchaOrg\Altcha\Altcha;
+use Frosh\AltchaCaptcha\Bypass\TestBypassDecider;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -18,8 +19,17 @@ class AltchaCaptcha extends AbstractCaptcha
     public const CONFIG_FIELD_SECRET = 'secretKey';
     public const CONFIG_PATH = 'core.basicInformation.activeCaptchasV2.' . self::CAPTCHA_NAME . '.config';
 
+    public function __construct(
+        private readonly TestBypassDecider $testBypassDecider,
+    ) {
+    }
+
     public function isValid(Request $request, array $captchaConfig): bool
     {
+        if ($this->testBypassDecider->isAllowed($request)) {
+            return true;
+        }
+
         $whitelistCustomers = $captchaConfig['config']['whitelistCustomers'] ?? false;
         if ($whitelistCustomers === true) {
             $context = $request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_CONTEXT_OBJECT);
@@ -49,6 +59,7 @@ class AltchaCaptcha extends AbstractCaptcha
             return false;
         }
     }
+
 
     public function getName(): string
     {
